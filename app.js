@@ -1,30 +1,23 @@
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
-import chalk from 'chalk';
+import morgan from 'morgan';
+import helmet from 'helmet';
 import connectDB from './config/dbConfig.js';
+import { app, appInit } from './server.js';
 import educationRouter from './routes/educationRouter.js';
-import contactRouter from './routes/contactRouter.js';
-
-dotenv.config();
 
 connectDB();
 
-const app = express();
-
-const PORT = process.env.PORT || 5000;
-
 const middlewares = [
     cors(),
+    morgan('tiny'),
+    helmet(),
     express.json(),
     express.urlencoded({ extended: false })
 ];
 
 app.use(middlewares);
 
-app.use(`${process.env.API_PREFIX}/education`, educationRouter);
-app.use(`${process.env.API_PREFIX}/`, contactRouter);
+app.use(`${process.env.API_PREFIX}/educations`, educationRouter);
 
-app.listen(PORT, () => {
-    console.log(chalk.cyan(`The server is running on port: ${PORT}`));
-});
+appInit();

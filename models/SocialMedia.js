@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 
 const socialMediaSchema = new Schema({
-    links: {
+    link: {
         type: String,
         trim: true
     }

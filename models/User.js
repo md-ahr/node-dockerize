@@ -33,6 +33,10 @@ const educationSchema = new Schema({
         type: String,
         trim: true
     },
+    contact: {
+        type: Schema.Types.ObjectId,
+        ref: 'Contact'
+    },
     education: [
         {
             type: Schema.Types.ObjectId,
