@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import chalk from 'chalk';
 import connectDB from './config/dbConfig.js';
+import educationRouter from './routes/educationRouter.js';
 import contactRouter from './routes/contactRouter.js';
 
 dotenv.config();
@@ -21,6 +22,7 @@ const middlewares = [
 
 app.use(middlewares);
 
+app.use(`${process.env.API_PREFIX}/education`, educationRouter);
 app.use(`${process.env.API_PREFIX}/`, contactRouter);
 
 app.listen(PORT, () => {

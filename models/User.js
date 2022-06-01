@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 
-const contactSchema = new Schema({
+const educationSchema = new Schema({
     name: {
         type: String,
         required: true,
@@ -12,23 +12,26 @@ const contactSchema = new Schema({
         unique: true,
         trim: true
     },
-    phoneNumber: {
+    password: {
         type: String,
         required: true,
-        unique: true,
+        trim: true
+    },
+    phoneNumber: {
+        type: String,
         trim: true
     },
     dateOfBirth: {
         type: String,
         trim: true
     },
-    image: {
+    profilePic: {
         type: String,
         default: ''
     },
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
+    address: {
+        type: String,
+        trim: true
     },
     education: [
         {
@@ -44,16 +47,12 @@ const contactSchema = new Schema({
         type: String,
         trim: true
     },
-    relation: [
-        type: Schema.Types.ObjectId,
-        ref: 'Relation'
-    ],
     socialMedia: [
         type: Schema.Types.ObjectId,
         ref: 'SocialMedia'
     ]
 }, { timestamps: true });
 
-const Contact = model('Contact', contactSchema);
+const Education = model('Education', educationSchema);
 
-export default Contact;
+export default Education;
