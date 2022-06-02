@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import connectDB from './config/dbConfig.js';
 import { app, appInit } from './server.js';
 import educationRouter from './routes/educationRouter.js';
+import { notFoundError, errorHandler } from './middlewares/appErrorHandler.js';
 
 connectDB();
 
@@ -20,20 +21,7 @@ app.use(middlewares);
 
 app.use(`${process.env.API_PREFIX}/educations`, educationRouter);
 
-app.use((req, res, next) => {
-    next('Requested url was not found!');
-});
-
-app.use((err, req, res, next) => {
-    if (res.headersSent) {
-        next('Header request already sent!');
-    } else {
-        if (err.message) {
-            res.status(500).send(err.message);
-        } else {
-            res.status(500).send('Internal server error!');
-        }
-    }
-});
+app.use(notFoundError);
+app.use(errorHandler);
 
 appInit();

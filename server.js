@@ -14,6 +14,8 @@ export function appInit() {
             console.log(chalk.cyan(`The server is running on port: ${PORT}`));
         });
     } catch (error) {
-        console.error(chalk.red(`Error occured: ${error.message}`));
+        if (error instanceof Error) {
+            console.error(chalk.red(`Error occured: ${error.message}`));
+        }
     }
 }
