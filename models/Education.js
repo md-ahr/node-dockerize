@@ -1,6 +1,6 @@
-import { Schema, model } from 'mongoose';
+import mongoose from 'mongoose';
 
-const educationSchema = new Schema({
+const educationSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -26,6 +26,6 @@ const educationSchema = new Schema({
     }
 }, { timestamps: true });
 
-const Education = model('Education', educationSchema);
+const Education = mongoose.model('Education', educationSchema);
 
 export default Education;
