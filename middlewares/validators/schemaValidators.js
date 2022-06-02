@@ -1,25 +1,13 @@
 import { body, validationResult } from 'express-validator';
 
-export const educationValidationRules = () => {
+export const relationshipValidationRules = () => {
     return [
         body('name')
             .not()
             .isEmpty()
-            .withMessage('Institute name is required'),
-        body('subject')
-            .not()
-            .isEmpty()
-            .withMessage('Department name is required'),
-        body('passingYear')
-            .isNumeric()
-            .withMessage('Passing year must be a number'),
-        body('grade')
-            .isNumeric()
-            .withMessage('Grade point must be a number'),
-        body('location')
-            .not()
-            .isEmpty()
-            .withMessage('Institute location is required')
+            .withMessage('Relation name is required')
+            .matches(/^[A-Za-z\s]+$/)
+            .withMessage('Relation name must be alphabetic')
     ];
 }
 
@@ -30,5 +18,5 @@ export const validate = (req, res, next) => {
     }
     const extractedErrors = [];
     errors.array().map(err => extractedErrors.push({ [err.param]: err.msg }));
-    return res.status(422).json({ errors: extractedErrors });
+    return res.status(422).json({ success: false, errors: extractedErrors });
 }

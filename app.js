@@ -4,7 +4,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import connectDB from './config/dbConfig.js';
 import { app, appInit } from './server.js';
-import educationRouter from './routes/educationRouter.js';
+import relationshipRouter from './routes/relationshipRouter.js';
 import { notFoundError, errorHandler } from './middlewares/appErrorHandler.js';
 
 connectDB();
@@ -19,7 +19,7 @@ const middlewares = [
 
 app.use(middlewares);
 
-app.use(`${process.env.API_PREFIX}/educations`, educationRouter);
+app.use(`${process.env.API_PREFIX}/relations`, relationshipRouter);
 
 app.use(notFoundError);
 app.use(errorHandler);
