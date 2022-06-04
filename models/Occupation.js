@@ -1,6 +1,6 @@
-import { Schema, model } from 'mongoose';
+import mongoose from 'mongoose';
 
-const occupationSchema = new Schema({
+const occupationSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -9,6 +9,6 @@ const occupationSchema = new Schema({
     }
 }, { timestamps: true });
 
-const Occupation = model('Occupation', occupationSchema);
+const Occupation = mongoose.model('Occupation', occupationSchema);
 
 export default Occupation;

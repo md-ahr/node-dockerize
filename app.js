@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import connectDB from './config/dbConfig.js';
 import { app, appInit } from './server.js';
 import relationshipRouter from './routes/relationshipRouter.js';
+import occupationRouter from './routes/occupationRouter.js';
 import { notFoundError, errorHandler } from './middlewares/appErrorHandler.js';
 
 connectDB();
@@ -20,6 +21,7 @@ const middlewares = [
 app.use(middlewares);
 
 app.use(`${process.env.API_PREFIX}/relations`, relationshipRouter);
+app.use(`${process.env.API_PREFIX}/occupations`, occupationRouter);
 
 app.use(notFoundError);
 app.use(errorHandler);
