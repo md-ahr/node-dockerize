@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { model, Schema } from 'mongoose';
 
 const contactSchema = new Schema({
     name: {
@@ -32,8 +32,23 @@ const contactSchema = new Schema({
     },
     education: [
         {
-            type: Schema.Types.ObjectId,
-            ref: 'Education'
+            name: {
+                type: String,
+                unique: true,
+                trim: true
+            },
+            passingYear: {
+                type: Number,
+                trim: true
+            },
+            grade: {
+                type: Number,
+                trim: true
+            },
+            location: {
+                type: String,
+                trim: true
+            }
         }
     ],
     occupation: [
@@ -49,8 +64,10 @@ const contactSchema = new Schema({
         ref: 'Relation'
     ],
     socialMedia: [
-        type: Schema.Types.ObjectId,
-        ref: 'SocialMedia'
+        {
+            type: String,
+            trim: true
+        }
     ]
 }, { timestamps: true });
 
