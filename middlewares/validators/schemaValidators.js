@@ -22,6 +22,35 @@ export const occupationValidationRules = () => {
     ];
 }
 
+export const contactValidationRules = () => {
+    return [
+        body('name')
+            .not()
+            .isEmpty()
+            .withMessage('Name is required'),
+        body('email')
+            .not()
+            .isEmpty()
+            .withMessage('Email address is required')
+            .isEmail()
+            .withMessage('Please provide valid email address'),
+        body('phoneNumber')
+            .not()
+            .isEmpty()
+            .withMessage('Phone number is required')
+            .matches(/^[0-9]+$/)
+            .withMessage('Phone number must be numeric'),
+        body('occupation')
+            .not()
+            .isEmpty()
+            .withMessage('Occupation name is required'),
+        body('relation')
+            .not()
+            .isEmpty()
+            .withMessage('Relation name is required')
+    ];
+}
+
 export const validate = (req, res, next) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {

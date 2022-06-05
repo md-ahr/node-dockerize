@@ -1,9 +1,10 @@
-import { model, Schema } from 'mongoose';
+import mongoose from 'mongoose';
 
-const contactSchema = new Schema({
+const contactSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
+        unique: true,
         trim: true
     },
     email: {
@@ -27,7 +28,7 @@ const contactSchema = new Schema({
         default: ''
     },
     user: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
     education: [
@@ -51,10 +52,11 @@ const contactSchema = new Schema({
             }
         }
     ],
-    occupation: [
-        type: Schema.Types.ObjectId,
-        ref: 'Occupation'
-    ],
+    occupation: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Occupation',
+        required: true
+    },
     company: [
         {
             name: {
@@ -76,10 +78,11 @@ const contactSchema = new Schema({
             }
         }
     ],
-    relation: [
-        type: Schema.Types.ObjectId,
-        ref: 'Relation'
-    ],
+    relation: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Relation',
+        required: true
+    },
     socialMedia: [
         {
             type: String,
@@ -88,6 +91,6 @@ const contactSchema = new Schema({
     ]
 }, { timestamps: true });
 
-const Contact = model('Contact', contactSchema);
+const Contact = mongoose.model('Contact', contactSchema);
 
 export default Contact;

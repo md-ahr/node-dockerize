@@ -1,22 +1,16 @@
 import express from 'express';
+import * as Relationship from '../controllers/relationshipController.js';
 import {
     relationshipValidationRules as validationRules,
     validate
 } from '../middlewares/validators/schemaValidators.js';
-import {
-    getAllItems,
-    getSingleItem,
-    createItem,
-    updateItem,
-    deleteItem
-} from '../controllers/relationshipController.js';
 
 const router = express.Router();
 
-router.get('/', getAllItems);
-router.get('/:id', getSingleItem);
-router.post('/', validationRules(), validate, createItem);
-router.patch('/:id', validationRules(), validate, updateItem);
-router.delete('/:id', deleteItem);
+router.get('/', Relationship.getAllItems);
+router.get('/:id', Relationship.getSingleItem);
+router.post('/', validationRules(), validate, Relationship.createItem);
+router.patch('/:id', validationRules(), validate, Relationship.updateItem);
+router.delete('/:id', Relationship.deleteItem);
 
 export default router;
