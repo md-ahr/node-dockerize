@@ -55,10 +55,27 @@ const contactSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Occupation'
     ],
-    company: {
-        type: String,
-        trim: true
-    },
+    company: [
+        {
+            name: {
+                type: String,
+                unique: true,
+                trim: true
+            },
+            joiningDate: {
+                type: String,
+                trim: true
+            },
+            post: {
+                type: String,
+                trim: true
+            },
+            location: {
+                type: String,
+                trim: true
+            }
+        }
+    ],
     relation: [
         type: Schema.Types.ObjectId,
         ref: 'Relation'
