@@ -5,6 +5,34 @@ export const relationshipValidationRules = () => {
         body('name')
             .not()
             .isEmpty()
+            .withMessage('User name is required'),
+        body('email')
+            .not()
+            .isEmpty()
+            .withMessage('Email address is required')
+            .normalizeEmail()
+            .isEmail()
+            .withMessage('Please provide valid email address'),
+        body('password')
+            .not()
+            .isEmpty()
+            .withMessage('Password is required')
+            .isLength({ min: 6 })
+            .withMessage('Password should be at least 6 characters'),
+        body('phoneNumber')
+            .not()
+            .isEmpty()
+            .withMessage('Phone number is required')
+            .matches(/^[0-9]+$/)
+            .withMessage('Phone number must be numeric')
+    ];
+}
+
+export const userValidationRules = () => {
+    return [
+        body('name')
+            .not()
+            .isEmpty()
             .withMessage('Relation name is required')
             .matches(/^[A-Za-z\s]+$/)
             .withMessage('Relation name must be alphabetic')
@@ -32,6 +60,7 @@ export const contactValidationRules = () => {
             .not()
             .isEmpty()
             .withMessage('Email address is required')
+            .normalizeEmail()
             .isEmail()
             .withMessage('Please provide valid email address'),
         body('phoneNumber')
