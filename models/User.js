@@ -1,3 +1,4 @@
+import bcrypt from 'bcryptjs';
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
@@ -20,7 +21,6 @@ const userSchema = new mongoose.Schema({
     },
     phoneNumber: {
         type: String,
-        unique: true,
         trim: true
     },
     dateOfBirth: {
@@ -92,6 +92,27 @@ const userSchema = new mongoose.Schema({
         }
     ]
 }, { timestamps: true });
+
+userSchema.pre('save', function (next) {
+    const _this = this;
+    if (this.isModified('password') || this.isNew) {
+        bcrypt.genSalt(10, function (saltError, salt) {
+            if (saltError) {
+                return next(saltError);
+            } else {
+                bcrypt.hash(_this.password, salt, function(hashError, hash) {
+                    if (hashError) {
+                        return next(hashError);
+                    }
+                    _this.password = hash;
+                    next();
+                });
+            }
+        });
+    } else {
+        return next();
+    }
+})
 
 const User = mongoose.model('User', userSchema);
 
