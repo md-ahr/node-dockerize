@@ -1,6 +1,6 @@
 import { body, validationResult } from 'express-validator';
 
-export const relationshipValidationRules = () => {
+export const userValidationRules = () => {
     return [
         body('name')
             .not()
@@ -18,17 +18,11 @@ export const relationshipValidationRules = () => {
             .isEmpty()
             .withMessage('Password is required')
             .isLength({ min: 6 })
-            .withMessage('Password should be at least 6 characters'),
-        body('phoneNumber')
-            .not()
-            .isEmpty()
-            .withMessage('Phone number is required')
-            .matches(/^[0-9]+$/)
-            .withMessage('Phone number must be numeric')
+            .withMessage('Password should be at least 6 characters')
     ];
 }
 
-export const userValidationRules = () => {
+export const relationshipValidationRules = () => {
     return [
         body('name')
             .not()
