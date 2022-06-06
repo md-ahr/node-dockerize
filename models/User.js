@@ -1,9 +1,10 @@
-import { Schema, model } from 'mongoose';
+import mongoose from 'mongoose';
 
-const educationSchema = new Schema({
+const educationSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
+        unique: true,
         trim: true
     },
     email: {
@@ -19,6 +20,7 @@ const educationSchema = new Schema({
     },
     phoneNumber: {
         type: String,
+        unique: true,
         trim: true
     },
     dateOfBirth: {
@@ -34,29 +36,63 @@ const educationSchema = new Schema({
         trim: true
     },
     contact: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Contact'
     },
     education: [
         {
-            type: Schema.Types.ObjectId,
-            ref: 'Education'
+            name: {
+                type: String,
+                unique: true,
+                trim: true
+            },
+            passingYear: {
+                type: Number,
+                trim: true
+            },
+            grade: {
+                type: Number,
+                trim: true
+            },
+            location: {
+                type: String,
+                trim: true
+            }
         }
     ],
-    occupation: [
-        type: Schema.Types.ObjectId,
+    occupation: {
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Occupation'
-    ],
-    company: {
-        type: String,
-        trim: true
     },
+    company: [
+        {
+            name: {
+                type: String,
+                unique: true,
+                trim: true
+            },
+            joiningDate: {
+                type: String,
+                trim: true
+            },
+            post: {
+                type: String,
+                trim: true
+            },
+            location: {
+                type: String,
+                trim: true
+            }
+        }
+    ],
     socialMedia: [
-        type: Schema.Types.ObjectId,
-        ref: 'SocialMedia'
+        {
+            type: String,
+            trim: true
+        }
     ]
 }, { timestamps: true });
 
-const Education = model('Education', educationSchema);
+const Education = mongoose.model('Education', educationSchema);
 
 export default Education;
