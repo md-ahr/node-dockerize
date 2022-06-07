@@ -8,6 +8,7 @@ import authRouter from './routes/authRouter.js';
 import contactRouter from './routes/contactRouter.js';
 import occupationRouter from './routes/occupationRouter.js';
 import relationshipRouter from './routes/relationshipRouter.js';
+import userRouter from './routes/userRouter.js';
 import { app, appInit } from './server.js';
 
 connectDB();
@@ -23,6 +24,7 @@ const middlewares = [
 app.use(middlewares);
 
 app.use(`${process.env.API_PREFIX}/auth`, authRouter);
+app.use(`${process.env.API_PREFIX}/users`, userRouter);
 app.use(`${process.env.API_PREFIX}/relations`, relationshipRouter);
 app.use(`${process.env.API_PREFIX}/occupations`, occupationRouter);
 app.use(`${process.env.API_PREFIX}/contacts`, contactRouter);
