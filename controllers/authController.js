@@ -1,5 +1,6 @@
 import asyncHandler from '../middlewares/asyncHandler.js';
 import User from '../models/User.js';
+import generateToken from '../utils/generateToken.js';
 import * as Response from '../utils/response.js';
 
 export const register = asyncHandler(async(req, res, next) => {
@@ -20,5 +21,16 @@ export const register = asyncHandler(async(req, res, next) => {
 });
 
 export const login = asyncHandler(async(req, res, next) => {
-    
+    const { email, password } = req.body;
+    const userInfo = await User.findOne({ email: email });
+    if (userInfo && (await userInfo.matchPassword(password))) {
+        const { _id, name, email, profilePic } = userInfo;
+        const body = {
+            user: { _id, name, email, profilePic },
+            token: generateToken(userInfo._id),
+        };
+        return Response.responseSuccess(res, body, 200, 'User logged in successfully');
+    } else {
+        return Response.responseError(res, 'Invalid email or password', 401);
+    }
 });
