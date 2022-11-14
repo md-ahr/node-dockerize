@@ -1,6 +1,6 @@
 FROM node:16.16.0
 WORKDIR /app
-COPY ["package.json", "package-lock.json*", "./"]
-RUN npm install
+COPY ["package.json", "yarn.lock*", "./"]
+RUN yarn
 COPY . .
-CMD ["npm", "start"]
+CMD ["yarn", "start"]
